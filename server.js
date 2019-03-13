@@ -19,9 +19,6 @@ setupMongoDB({ url, dbName: database })
       typeDefs,
       resolvers,
       introspection: true,
-      playground: {
-        endpoint: "https://chat-365.heroku.app/graphql"
-      },
       context: async ({ req, connection }) => {
         return {
           Collections: {
