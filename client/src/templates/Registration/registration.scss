@@ -1,0 +1,76 @@
+@import "styles/globals.scss";
+
+.registration {
+    display: flex;
+    height: 100vh;
+    background: $dark-black;
+    justify-content: center;
+    align-items: center;
+
+    .registration-card {
+        padding: 30px;
+        display: flex;
+        width: 60%;
+        max-width: 1024px;
+        align-items: center;
+        background-color: $dark-lighter-black;
+        color: white;
+        border-radius: 7px;
+
+        .logo {
+            $s: 150px;
+
+            width: $s;
+            height: $s;
+            border-radius: 50%;
+            background-color: white;
+            color: $dark-lighter-black;
+            display: flex;
+            align-items: center;
+            font-size: 4rem;
+            font-weight: 600;
+            justify-content: center;
+        }
+
+        .content {
+            margin-left: 35px;
+            display: flex;
+            align-items: center;
+            flex: 1;
+
+            h2 {
+                max-width: 50%;
+                margin: 0;
+                margin-right: 15px;
+            }
+
+            form {
+                flex: 1;
+                display: flex;
+                font-size: 1.3rem;
+
+                & > * {
+                    border-radius: 3px;
+                }
+
+                input {
+                    flex: 1;
+                    border: none;
+                    font-size: inherit;
+                    display: flex;
+                    line-height: 1;
+                    padding: 10px;
+                    margin-right: 10px;
+                }
+
+                button {
+                    font-size: inherit;
+                    background: gray;
+                    color: white;
+                    border: none;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

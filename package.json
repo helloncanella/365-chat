@@ -1,0 +1,23 @@
+{
+  "name": "365-chat-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "DEV_PORT=8365 nodemon *.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.4.8",
+    "apollo-server-express": "^2.4.8",
+    "esm": "^3.2.11",
+    "express": "^4.16.4",
+    "graphql": "^14.1.1",
+    "graphql-subscriptions": "^1.0.0",
+    "mongodb": "^3.1.13",
+    "nodemon": "^1.18.10",
+    "ws": "^6.1.4"
+  }
+}

@@ -1,0 +1,17 @@
+@import "styles/globals.scss";
+
+.status-dot {
+    $w: 10px;
+
+    width: $w;
+    height: $w;
+    border-radius: 50%;
+
+    &.online {
+        background: $online-dot;
+    }
+
+    &.offline {
+        background: $offline-dot;
+    }
+}

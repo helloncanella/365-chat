@@ -1,0 +1,59 @@
+@import "styles/globals.scss";
+
+.menu-item {
+    padding: 10px 8px;
+    font-size: 17px;
+    font-weight: 500;
+    color: $type-not-hovered;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    a {
+        color: inherit;
+    }
+
+    &.hovered {
+        background-color: $hovered-menu-item;
+        color: white;
+    }
+
+    &.selected {
+        @extend .hovered;
+    }
+
+    &:hover {
+        @extend .hovered;
+    }
+
+    & > * {
+        display: inline-block;
+    }
+
+    div.icon-container {
+        margin-right: 18px;
+        display: flex;
+        justify-items: center;
+
+        & > * {
+            margin: 0 auto;
+        }
+    }
+
+    .content {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.favorite-contacts {
+    margin-top: 31px;
+
+    .title {
+        text-transform: uppercase;
+        font-weight: 600;
+        color: $type-not-hovered;
+        margin: 0;
+    }
+}

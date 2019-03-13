@@ -1,0 +1,51 @@
+@import "styles/globals.scss";
+
+.home {
+    .wrap, & {
+        display: flex;
+        height: 100vh;
+        flex: 1;
+        max-height: 100vh;
+    }
+
+    .first-menu {
+        width: 88px;
+        background-color: $dark-black;
+        padding: 10px;
+
+        img {
+            margin: 0 auto;
+            display: block;
+            width: 54px;
+        }
+    }
+
+    .second-menu {
+        width: 240px;
+        background-color: $dark-lighter-black;
+        padding: 0 8px;
+    }
+
+    main {
+        flex: 1;
+        background: $light-black;
+    }
+}
+
+.sections-menu {
+    li {
+        .icon {
+            width: 18px;
+            color: $type-not-hovered;
+            line-height: 1;
+            font-size: 1.2em;
+        }
+
+        &:hover, .selected {
+            .icon {
+                transition: opacity 1s;
+                opacity: 0;
+            }
+        }
+    }
+}

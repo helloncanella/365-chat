@@ -1,0 +1,87 @@
+@import "styles/globals.scss";
+
+.chat {
+    display: flex;
+    flex-flow: column;
+    height: 100vh;
+    max-height: 100vh;
+
+    .header {
+        padding: 13px;
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 2px 0 rgba(0, 0, 0, 0.06);
+        display: flex;
+        align-items: center;
+
+        .user-name {
+            margin-right: 5px;
+            color: white;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .status-dot {
+            margin-left: 5px;
+        }
+    }
+
+    .body-content, .footer {
+        $lp: 20px;
+
+        padding: 0 $lp;
+    }
+
+    .body {
+        color: white;
+        flex-grow: 1;
+        max-height: 100vh;
+        overflow: auto;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .footer {
+        .input-container {
+            padding: 20px 0 30px;
+            border-top: $divisor;
+
+            textarea, input {
+                color: $chat-input-color;
+                background-color: $chat-input-background;
+                width: 100%;
+                padding: 10px;
+                border: none;
+                font-size: 17px;
+            }
+        }
+    }
+}
+
+.messages {
+    .message-container {
+        &:not(:first-child) {
+            border-top: $divisor;
+        }
+    }
+
+    .message {
+        padding: 20px 0;
+        display: flex;
+        color: white;
+
+        .avatar-column {
+            margin-right: 20px;
+        }
+
+        .message-column {
+            .name {
+                font-weight: 700;
+            }
+
+            .date {
+                font-size: 0.9em;
+                font-weight: 500;
+                color: $type-not-hovered;
+            }
+        }
+    }
+}

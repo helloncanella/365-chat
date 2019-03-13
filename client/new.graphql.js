@@ -1,0 +1,5 @@
+const type = `
+  type Query{
+
+  }
+`
