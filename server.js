@@ -7,7 +7,10 @@ import resolvers from "./server/lib/apollo/resolvers/index"
 import setupMongoDB from "./server/lib/apollo/setupMongoDB"
 import path from "path"
 
-setupMongoDB({ url: "mongodb://localhost:27017", dbName: "chat-graphql" })
+const database = "heroku_crwpjkjk"
+const url = `mongodb://dbAdmin:CaE522FptiJhkLz@ds135519.mlab.com:35519/${database}`
+
+setupMongoDB({ url, dbName: database })
   .then(database => {
     const PORT = process.env.PORT || process.env.DEV_PORT || 8365
     const app = express()

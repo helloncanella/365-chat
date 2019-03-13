@@ -25,6 +25,6 @@
     "ignore": [
       "client/*"
     ],
-    "delay": "2500"
+    "delay": "1000"
   }
 }
