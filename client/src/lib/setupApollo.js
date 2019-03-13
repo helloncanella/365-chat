@@ -6,7 +6,7 @@ import { WebSocketLink } from "apollo-link-ws"
 import { getMainDefinition } from "apollo-utilities"
 
 const isProduction = process.env.NODE_ENV === "production"
-const host = isProduction ? "chat-365.heroku.com" : "localhost:8365"
+const host = isProduction ? "chat-365.herokuapp.com" : "localhost:8365"
 
 const wsLink = new WebSocketLink({
   uri: `ws://${host}/graphql`,
