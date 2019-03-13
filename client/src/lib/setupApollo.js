@@ -5,15 +5,18 @@ import { HttpLink } from "apollo-link-http"
 import { WebSocketLink } from "apollo-link-ws"
 import { getMainDefinition } from "apollo-utilities"
 
+const isProduction = process.env.NODE_ENV === "production"
+const host = isProduction ? "chat-365.heroku.com" : "localhost:8365"
+
 const wsLink = new WebSocketLink({
-  uri: "ws://localhost:8365/graphql",
+  uri: `ws://${host}/graphql`,
   options: {
     reconnect: true
   }
 })
 
 const httpLink = new HttpLink({
-  uri: "http://localhost:8365/graphql"
+  uri: `http://${host}/graphql`
 })
 
 const link = split(
