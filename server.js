@@ -36,7 +36,7 @@ setupMongoDB({ url, dbName: database })
     //adding websocket
     apollo.installSubscriptionHandlers(httpServer)
 
-    if (process.env.MODE === "production") {
+    if (process.env.NODE_ENV === "production") {
       app.use(express.static(path.join(__dirname, "./client/build")))
 
       app.get("*", function(req, res) {
