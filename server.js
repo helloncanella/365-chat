@@ -2,11 +2,11 @@ const http = require("http")
 const { ApolloServer } = require("apollo-server-express")
 const express = require("express")
 
-import typeDefs from "./graphql/index"
-import resolvers from "./lib/apollo/resolvers/index"
-import setupMongoDB from "./lib/apollo/setupMongoDB"
+import typeDefs from "./server/graphql/index"
+import resolvers from "./server/lib/apollo/resolvers/index"
+import setupMongoDB from "./server/lib/apollo/setupMongoDB"
 
-setupMongoDB({ url: "mongodb://localhost:27017", dbName: "chat-service" })
+setupMongoDB({ url: "mongodb://localhost:27017", dbName: "chat-graphql" })
   .then(database => {
     const PORT = process.env.DEV_PORT
     const app = express()

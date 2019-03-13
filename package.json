@@ -1,10 +1,10 @@
 {
-  "name": "365-chat-service",
+  "name": "graphql-playground",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "DEV_PORT=8365 nodemon *.js",
+    "start": "DEV_PORT=8365 nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -19,5 +19,11 @@
     "mongodb": "^3.1.13",
     "nodemon": "^1.18.10",
     "ws": "^6.1.4"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "client/*"
+    ],
+    "delay": "2500"
   }
 }
