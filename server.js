@@ -19,6 +19,9 @@ setupMongoDB({ url, dbName: database })
       typeDefs,
       resolvers,
       introspection: true,
+      playground: {
+        endpoint: "/graphql"
+      },
       context: async ({ req, connection }) => {
         return {
           Collections: {
