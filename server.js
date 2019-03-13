@@ -2,13 +2,14 @@ const http = require("http")
 const { ApolloServer } = require("apollo-server-express")
 const express = require("express")
 
-import typeDefs from "./server/graphql/index"
+import typeDefs from "./graphql/index"
 import resolvers from "./server/lib/apollo/resolvers/index"
 import setupMongoDB from "./server/lib/apollo/setupMongoDB"
+import path from "path"
 
 setupMongoDB({ url: "mongodb://localhost:27017", dbName: "chat-graphql" })
   .then(database => {
-    const PORT = process.env.DEV_PORT
+    const PORT = process.env.PORT || process.env.DEV_PORT || 8365
     const app = express()
 
     const apollo = new ApolloServer({
@@ -31,6 +32,14 @@ setupMongoDB({ url: "mongodb://localhost:27017", dbName: "chat-graphql" })
 
     //adding websocket
     apollo.installSubscriptionHandlers(httpServer)
+
+    if (process.env.MODE === "production") {
+      app.use(express.static(path.join(__dirname, "./client/build")))
+
+      app.get("*", function(req, res) {
+        res.sendFile(path.join(__dirname, "./client/build", "index.html"))
+      })
+    }
 
     httpServer.listen(PORT, () => {
       console.log(
