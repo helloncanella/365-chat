@@ -4,6 +4,7 @@ import { split } from "apollo-link"
 import { HttpLink } from "apollo-link-http"
 import { WebSocketLink } from "apollo-link-ws"
 import { getMainDefinition } from "apollo-utilities"
+import { setContext } from "apollo-link-context"
 
 const isProduction = process.env.NODE_ENV === "production"
 const host = isProduction ? "chat-365.herokuapp.com" : "localhost:8365"
@@ -12,6 +13,17 @@ const wsLink = new WebSocketLink({
   uri: `ws://${host}/graphql`,
   options: {
     reconnect: true
+  }
+})
+
+const authLink = setContext((_, { headers }) => {
+  const userId = localStorage.getItem("loggedUserId")
+
+  return {
+    headers: {
+      ...headers,
+      authorization: userId || ""
+    }
   }
 })
 
@@ -25,12 +37,13 @@ const link = split(
     return kind === "OperationDefinition" && operation === "subscription"
   },
   wsLink,
-  httpLink
+  authLink.concat(httpLink)
 )
 
 export default function setupApollo() {
   const client = new ApolloClient({
     link,
+    // link: authLink.concat(httpLink),
     cache: new InMemoryCache()
   })
 

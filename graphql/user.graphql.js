@@ -17,6 +17,8 @@ const user = gql`
   extend type Subscription {
     isUserTyping(userId: String!): Boolean
   }
+
+  # extend type S
 `
 
 export default user

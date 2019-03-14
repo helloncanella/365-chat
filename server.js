@@ -10,6 +10,8 @@ import path from "path"
 const database = "heroku_crwpjkjk"
 const url = `mongodb://dbAdmin:CaE522FptiJhkLz@ds135519.mlab.com:35519/${database}`
 
+import _ from "lodash"
+
 setupMongoDB({ url, dbName: database })
   .then(database => {
     const PORT = process.env.PORT || process.env.DEV_PORT || 8365
@@ -24,6 +26,7 @@ setupMongoDB({ url, dbName: database })
       },
       context: async ({ req, connection }) => {
         return {
+          loggedUserId: _.get(req, "headers.authorization"),
           Collections: {
             Messages: database.collection("messages"),
             Users: database.collection("users")

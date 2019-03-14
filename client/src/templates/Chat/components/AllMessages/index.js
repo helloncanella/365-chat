@@ -5,7 +5,7 @@ import AllMessages from "./AllMessages"
 import { graphql } from "react-apollo"
 import gql from "graphql-tag"
 
-const ALL_MESSAGES = gql`
+export const ALL_MESSAGES = gql`
   query AllMessages {
     messages {
       _id

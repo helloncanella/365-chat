@@ -3,6 +3,7 @@ import { contacts } from "../../fakeData"
 import Footer from "./Footer"
 import { graphql } from "react-apollo"
 import gql from "graphql-tag"
+import { ALL_MESSAGES } from "../AllMessages"
 // import { gql } from "apollo-server";
 
 const SEND_MESSAGE = gql`
@@ -25,19 +26,30 @@ const SEND_MESSAGE = gql`
 
 export default compose(
   graphql(SEND_MESSAGE, {
-    props: ({ mutate, data: { error } = {} }) => {
-      console.log(error)
+    props: ({ mutate }) => {
       return {
         sendMessage: async message => {
           if (!message) return null
+
+          const variables = {
+            userId: localStorage.getItem("loggedUserId"),
+            content: message,
+            timestamp: new Date().getTime()
+          }
+
           mutate({
-            variables: {
-              userId: localStorage.getItem("loggedUserId"),
-              content: message,
-              timestamp: new Date().getTime()
-            }
+            variables
           })
         }
+      }
+    },
+
+    options: {
+      update: (cache, { data: { sendMessage } }) => {
+        const query = ALL_MESSAGES
+        const data = cache.readQuery({ query })
+        data.messages.push(sendMessage)
+        cache.writeQuery({ query, data })
       }
     }
   })
