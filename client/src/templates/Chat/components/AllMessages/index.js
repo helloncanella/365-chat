@@ -1,7 +1,6 @@
 import _ from "lodash"
-import FAIcon from "components/FAIcon/FAIcon.js"
 import React from "react"
-import { compose, mapProps, lifecycle, withProps } from "recompose"
+import { compose, mapProps, withProps } from "recompose"
 import AllMessages from "./AllMessages"
 import { graphql } from "react-apollo"
 import gql from "graphql-tag"
