@@ -9,20 +9,23 @@ import { setContext } from "apollo-link-context"
 const isProduction = process.env.NODE_ENV === "production"
 const host = isProduction ? "chat-365.herokuapp.com" : "localhost:8365"
 
+const userId = () => localStorage.getItem("loggedUserId") || ""
+
 const wsLink = new WebSocketLink({
   uri: `ws://${host}/graphql`,
   options: {
-    reconnect: true
+    reconnect: true,
+    connectionParams: () => ({
+      authToken: userId()
+    })
   }
 })
 
 const authLink = setContext((_, { headers }) => {
-  const userId = localStorage.getItem("loggedUserId")
-
   return {
     headers: {
       ...headers,
-      authorization: userId || ""
+      authorization: userId()
     }
   }
 })

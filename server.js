@@ -26,7 +26,9 @@ setupMongoDB({ url, dbName: database })
       },
       context: async ({ req, connection }) => {
         return {
-          loggedUserId: _.get(req, "headers.authorization"),
+          loggedUserId:
+            _.get(req, "headers.authorization") ||
+            _.get(connection, "context.authToken"),
           Collections: {
             Messages: database.collection("messages"),
             Users: database.collection("users")

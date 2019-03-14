@@ -17,15 +17,22 @@ export const mutations = {
     const author = await Users.findOne({ _id: ObjectID(userId) })
     if (!author) throw new Error(`author with id ${userId} doesn't exist`)
 
-    const message = {
-      author,
+    const { insertedId: _id } = await Messages.insertOne({
+      content,
+      authorId: author._id,
+      timestamp
+    })
+
+    const newMessage = {
+      _id: _id.toString(),
+      author: { ...author, _id: author._id.toString() },
       content,
       timestamp
     }
 
-    const { insertedId: _id } = await Messages.insertOne(message)
-    const newMessage = { _id, ...message }
-    pubSub.publish(NEW_MESSAGE, { newMessage })
+    pubSub.publish(NEW_MESSAGE, {
+      newMessage
+    })
 
     return newMessage
   },
