@@ -7,8 +7,12 @@ import resolvers from "./server/lib/apollo/resolvers/index"
 import setupMongoDB from "./server/lib/apollo/setupMongoDB"
 import path from "path"
 
-const database = "heroku_crwpjkjk"
-const url = `mongodb://dbAdmin:CaE522FptiJhkLz@ds135519.mlab.com:35519/${database}`
+const isProduction = process.env.NODE_ENV === "production"
+
+const database = isProduction ? "heroku_crwpjkjk" : "chat-service"
+const url = isProduction
+  ? `mongodb://dbAdmin:CaE522FptiJhkLz@ds135519.mlab.com:35519/${database}`
+  : "mongodb://127.0.0.1:27017"
 
 import _ from "lodash"
 
