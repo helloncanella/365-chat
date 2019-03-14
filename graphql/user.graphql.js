@@ -14,6 +14,10 @@ const user = gql`
     createUser(name: String!, color: String!): User!
   }
 
+  extend type Query {
+    loggedUser: User
+  }
+
   extend type Subscription {
     isUserTyping(userId: String!): Boolean
   }

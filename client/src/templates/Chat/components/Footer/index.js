@@ -4,8 +4,15 @@ import Footer from "./Footer"
 import { graphql } from "react-apollo"
 import gql from "graphql-tag"
 import { ALL_MESSAGES } from "../AllMessages"
-// import { gql } from "apollo-server";
 
+const LOGGED_USER = gql`
+  query LoggedUser {
+    loggedUser {
+      _id
+      name
+    }
+  }
+`
 const SEND_MESSAGE = gql`
   mutation SendMessage(
     $userId: String!
@@ -25,20 +32,35 @@ const SEND_MESSAGE = gql`
 `
 
 export default compose(
+  graphql(LOGGED_USER, {
+    props: ({ data = {} }) => {
+      return { loggedUser: data.loggedUser }
+    }
+  }),
   graphql(SEND_MESSAGE, {
-    props: ({ mutate }) => {
+    props: ({ mutate, ownProps: { loggedUser = {} } = {} }) => {
       return {
         sendMessage: async message => {
           if (!message) return null
 
-          const variables = {
-            userId: localStorage.getItem("loggedUserId"),
-            content: message,
-            timestamp: new Date().getTime()
-          }
+          const timestamp = new Date().getTime()
 
           mutate({
-            variables
+            variables: {
+              userId: loggedUser._id,
+              content: message,
+              timestamp
+            },
+
+            optimisticResponse: {
+              sendMessage: {
+                _id: Math.random() * -1,
+                __typename: "Message",
+                content: message,
+                author: loggedUser,
+                timestamp
+              }
+            }
           })
         }
       }
@@ -48,6 +70,8 @@ export default compose(
       update: (cache, { data: { sendMessage } }) => {
         const query = ALL_MESSAGES
         const data = cache.readQuery({ query })
+
+        console.log(data.messages)
         data.messages.push(sendMessage)
         cache.writeQuery({ query, data })
       }

@@ -2,7 +2,13 @@ import pubSub from "../../pubSub"
 import { NEW_MESSAGE } from "../../subscriptions-names"
 import { ObjectID } from "mongodb"
 
-export const queries = {}
+export const queries = {
+  async loggedUser(__, ___, { Collections: { Users }, loggedUserId } = {}) {
+    if (!loggedUserId) return null
+
+    return await Users.findOne({ _id: ObjectID(loggedUserId) })
+  }
+}
 
 export const mutations = {
   async sendMessage(__, { userId, content, timestamp }, { Collections }) {
