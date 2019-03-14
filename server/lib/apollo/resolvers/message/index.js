@@ -2,7 +2,6 @@ import _ from "lodash"
 import pubSub from "../../pubSub"
 import { NEW_MESSAGE } from "../../subscriptions-names"
 import { withFilter } from "graphql-subscriptions"
-import { ObjectID } from "mongodb"
 
 export const queries = {
   async messages(__, ___, { Collections }) {
@@ -33,16 +32,5 @@ export const subscriptions = {
         return authorId !== loggedUserId
       }
     )
-    // subscribe: withFilter(
-    //   () => pubSub.asyncIterator(NEW_MESSAGE),
-    //   (payload, __, context) => {
-    //     const authorId = _.get(payload, "newMessage.author._id")
-    //     const loggedUserId = _.get(context, "loggedUserId")
-
-    //     // console.log(loggedUserId, authorId)
-    //     // return true
-    //     return authorId !== loggedUserId
-    //   }
-    // )
   }
 }
